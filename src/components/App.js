@@ -1,0 +1,16 @@
+import React from "react";
+import { useEffect, useState } from "react";
+import { authService } from "../fbase";
+import AppRouter from "./Router";
+function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(authService.currentUser);
+
+  return (
+    <>
+      <AppRouter isLoggedIn={isLoggedIn} />
+      <footer>&copy; {new Date().getFullYear()}leewitter</footer>
+    </>
+  );
+}
+
+export default App;
