@@ -1,3 +1,4 @@
+import { updateCurrentUser } from "firebase/auth";
 import React from "react";
 import { useEffect, useState } from "react";
 import { authService } from "../fbase";
@@ -17,14 +18,31 @@ function App() {
       setInit(true);
     });
   }, []);
+  // const refreshUser = () => {
+  //   const user = authService.currentUser;
+  //   setUserObj({
+  //     displayName: user.displayName,
+  //     uid: user.uid,
+  //     updateProfile: (args) => {
+  //       user.updateProfile(args);
+  //     },
+  //   });
+  // };
+  const refreshUser = async () => {
+    await updateCurrentUser(authService, authService.currentUser);
+    setUserObj(authService.currentUser);
+  };
   return (
     <>
       {init ? (
-        <AppRouter isLoggedIn={isLoggedIn} userObj={userObj} />
+        <AppRouter
+          refreshUser={refreshUser}
+          isLoggedIn={isLoggedIn}
+          userObj={userObj}
+        />
       ) : (
         "Initializing"
       )}
-      <footer>&copy; {new Date().getFullYear()}leewitter</footer>
     </>
   );
 }
