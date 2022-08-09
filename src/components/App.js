@@ -18,16 +18,7 @@ function App() {
       setInit(true);
     });
   }, []);
-  // const refreshUser = () => {
-  //   const user = authService.currentUser;
-  //   setUserObj({
-  //     displayName: user.displayName,
-  //     uid: user.uid,
-  //     updateProfile: (args) => {
-  //       user.updateProfile(args);
-  //     },
-  //   });
-  // };
+
   const refreshUser = async () => {
     await updateCurrentUser(authService, authService.currentUser);
     setUserObj(authService.currentUser);
